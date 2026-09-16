@@ -20,20 +20,23 @@ public class Category {
     private String name;
     private String description;
     private String icon;
+    private String location;
     private boolean active;
     private int order;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public static Category createNew(String name, String description, String icon, int order) {
+    public static Category createNew(String name, String description, String icon, String location, int order) {
         if (name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Nombre de categoría requerido");
         if (icon == null || icon.trim().isEmpty()) throw new IllegalArgumentException("Icono de categoría requerido");
+        if (location == null || location.trim().isEmpty()) throw new IllegalArgumentException("Ubicación requerida");
         if (order < 0) throw new IllegalArgumentException("El orden no puede ser negativo");
         LocalDateTime now = LocalDateTime.now();
         return Category.builder()
                 .name(name.trim())
                 .description(description != null ? description.trim() : "")
                 .icon(icon.trim())
+                .location(location.trim())
                 .active(true)
                 .order(order)
                 .createdAt(now)
@@ -41,10 +44,11 @@ public class Category {
                 .build();
     }
 
-    public void update(String name, String description, String icon, Integer order) {
+    public void update(String name, String description, String icon, String location, Integer order) {
         if (name != null) this.name = name.trim();
         if (description != null) this.description = description.trim();
         if (icon != null) this.icon = icon.trim();
+        if (location != null) this.location = location.trim();
         if (order != null) this.order = order;
         this.updatedAt = LocalDateTime.now();
     }

@@ -41,6 +41,7 @@ public class UserService implements UserUseCase {
         String hash = passwordEncoder.encode(password);
         User user = new User(null, name.trim(), phone.trim(), email.trim().toLowerCase(),
                 hash, EnumSet.of(roleName, RoleName.USER),
+                java.math.BigDecimal.ZERO,
                 java.time.LocalDateTime.now());
         return userRepository.save(user);
     }
@@ -57,5 +58,20 @@ public class UserService implements UserUseCase {
     public User getById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new InvalidCredentialsException());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User getProfile(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new InvalidCredentialsException());
+    }
+
+    @Override
+    @Transactional
+    public User updateProfile(String email, String name, String phone) {
+        if (name == null || name.trim().length() < 3) throw new IllegalArgumentException("Nombre mínimo 3 caracteres");
+        if (phone == null || phone.trim().length() < 7) throw new IllegalArgumentException("Celular inválido");
+        return userRepository.updateProfile(email, name.trim(), phone.trim());
     }
 }

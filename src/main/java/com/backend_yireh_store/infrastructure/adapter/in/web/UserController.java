@@ -3,11 +3,13 @@ package com.backend_yireh_store.infrastructure.adapter.in.web;
 import com.backend_yireh_store.domain.model.User;
 import com.backend_yireh_store.domain.port.in.UserUseCase;
 import com.backend_yireh_store.infrastructure.adapter.in.web.dto.CreateUserRequest;
+import com.backend_yireh_store.infrastructure.adapter.in.web.dto.UpdateProfileRequest;
 import com.backend_yireh_store.infrastructure.adapter.in.web.dto.UserResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,4 +47,21 @@ public class UserController {
         User user = userUseCase.createAdmin(req.name(), req.phone(), req.email(), req.password(), req.role());
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromUser(user));
     }
+
+    /** GET /api/users/me — perfil del usuario autenticado. */
+    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<UserResponse> getMyProfile(Authentication auth) {
+        return ResponseEntity.ok(UserResponse.fromUser(userUseCase.getProfile(auth.getName())));
+    }
+
+    /** PUT /api/users/me — actualizar nombre y teléfono del usuario autenticado. */
+    @PutMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<UserResponse> updateMyProfile(Authentication auth,
+                                                         @RequestBody UpdateProfileRequest req) {
+        User updated = userUseCase.updateProfile(auth.getName(), req.name(), req.phone());
+        return ResponseEntity.ok(UserResponse.fromUser(updated));
+    }
 }
+

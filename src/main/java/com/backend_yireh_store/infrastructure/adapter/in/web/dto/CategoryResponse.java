@@ -7,6 +7,7 @@ public record CategoryResponse(
         String name,
         String description,
         String icon,
+        String location,
         boolean active,
         int order,
         LocalDateTime createdAt,

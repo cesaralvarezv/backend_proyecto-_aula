@@ -26,11 +26,11 @@ public class CategoryService implements CategoryUseCase {
 
     @Override
     @Transactional
-    public Category create(String name, String description, String icon, int order) {
+    public Category create(String name, String description, String icon, String location, int order) {
         if (categoryRepository.existsByNameIgnoreCase(name)) {
             throw new CategoryAlreadyExistsException(name);
         }
-        Category category = Category.createNew(name, description, icon, order);
+        Category category = Category.createNew(name, description, icon, location, order);
         return categoryRepository.save(category);
     }
 
@@ -54,15 +54,21 @@ public class CategoryService implements CategoryUseCase {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Category> getActiveByLocation(String location) {
+        return categoryRepository.findByActiveTrueAndLocation(location);
+    }
+
+    @Override
     @Transactional
-    public Category update(Long id, String name, String description, String icon, Integer order) {
+    public Category update(Long id, String name, String description, String icon, String location, Integer order) {
         Category category = getById(id);
         if (name != null && !name.equalsIgnoreCase(category.getName())) {
             if (categoryRepository.existsByNameIgnoreCase(name)) {
                 throw new CategoryAlreadyExistsException(name);
             }
         }
-        category.update(name, description, icon, order);
+        category.update(name, description, icon, location, order);
         return categoryRepository.save(category);
     }
 

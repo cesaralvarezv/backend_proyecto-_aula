@@ -44,6 +44,7 @@ public class DataInitializer implements CommandLineRunner {
             String hash = passwordEncoder.encode(adminPassword);
             User admin = new User(null, adminName, "0000000000", adminEmail, hash,
                     EnumSet.of(RoleName.ADMIN, RoleName.USER),
+                    java.math.BigDecimal.ZERO,
                     java.time.LocalDateTime.now());
             userRepository.save(admin);
             log.info("[DataInitializer] Usuario ADMIN creado: {}", adminEmail);

@@ -6,7 +6,9 @@ import com.backend_yireh_store.infrastructure.adapter.out.persistence.entity.Use
 import com.backend_yireh_store.infrastructure.adapter.out.persistence.repository.SpringUserJpaRepository;
 import com.backend_yireh_store.infrastructure.mapper.UserMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +49,21 @@ public class UserPersistenceAdapter implements UserRepositoryPort {
     @Override
     public List<User> findAll() {
         return jpaRepository.findAll().stream().map(mapper::toDomain).toList();
+    }
+
+    @Override
+    @Transactional
+    public User updateBalance(String email, BigDecimal newBalance) {
+        jpaRepository.updateBalance(email, newBalance);
+        return jpaRepository.findByEmail(email).map(mapper::toDomain)
+                .orElseThrow(() -> new IllegalStateException("Usuario no encontrado: " + email));
+    }
+
+    @Override
+    @Transactional
+    public User updateProfile(String email, String name, String phone) {
+        jpaRepository.updateProfile(email, name, phone);
+        return jpaRepository.findByEmail(email).map(mapper::toDomain)
+                .orElseThrow(() -> new IllegalStateException("Usuario no encontrado: " + email));
     }
 }

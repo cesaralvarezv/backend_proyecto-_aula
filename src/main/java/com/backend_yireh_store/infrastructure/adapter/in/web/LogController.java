@@ -8,6 +8,7 @@ import com.backend_yireh_store.infrastructure.mapper.LogResponseMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/logs")
 @CrossOrigin(origins = "*")
+@Validated
 public class LogController {
 
     private final LogUseCase logUseCase;
@@ -34,7 +36,7 @@ public class LogController {
     }
 
     @PostMapping("/batch")
-    public ResponseEntity<List<LogResponse>> createLogs(@Valid @RequestBody List<LogRequest> reqs) {
+    public ResponseEntity<List<LogResponse>> createLogs(@RequestBody List<@Valid LogRequest> reqs) {
         List<LogResponse> responses = reqs.stream()
                 .map(req -> {
                     LogEntry entry = logUseCase.registerFrontend(

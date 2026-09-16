@@ -13,6 +13,10 @@ public record CategoryRequest(
         @NotBlank(message = "Icono es requerido")
         String icon,
 
+        @NotBlank(message = "Ubicación es requerida")
+        @Size(min = 1, max = 100, message = "Ubicación maximo 100 caracteres")
+        String location,
+
         @Min(value = 0, message = "Orden no puede ser negativo")
         int order
 ) {}

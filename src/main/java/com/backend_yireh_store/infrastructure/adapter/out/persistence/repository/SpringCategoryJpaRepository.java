@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface SpringCategoryJpaRepository extends JpaRepository<CategoryEntity, Long> {
     Optional<CategoryEntity> findByNameIgnoreCase(String name);
     List<CategoryEntity> findByActiveTrue();
+    List<CategoryEntity> findByActiveTrueAndLocationIgnoreCase(String location);
     boolean existsByNameIgnoreCase(String name);
 }

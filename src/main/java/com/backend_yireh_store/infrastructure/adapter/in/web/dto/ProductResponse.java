@@ -10,6 +10,7 @@ public record ProductResponse(
         String description,
         String imageUrl,
         Long categoryId,
+        String categoryName,
         boolean active,
         int order,
         LocalDateTime createdAt,

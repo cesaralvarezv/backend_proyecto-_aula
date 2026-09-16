@@ -3,6 +3,7 @@ package com.backend_yireh_store.infrastructure.adapter.out.persistence.entity;
 import com.backend_yireh_store.domain.model.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +42,10 @@ public class UserEntity {
     @Column(name = "role_name", nullable = false, length = 20)
     @Builder.Default
     private Set<RoleName> roles = new HashSet<>();
+
+    @Column(name = "balance", nullable = false, precision = 12, scale = 2)
+    @Builder.Default
+    private BigDecimal balance = BigDecimal.ZERO;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

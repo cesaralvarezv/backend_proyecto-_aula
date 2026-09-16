@@ -10,6 +10,7 @@ public interface CategoryRepositoryPort {
     Optional<Category> findByNameIgnoreCase(String name);
     List<Category> findAll();
     List<Category> findByActiveTrue();
+    List<Category> findByActiveTrueAndLocation(String location);
     boolean existsByNameIgnoreCase(String name);
     void deleteById(Long id);
 }

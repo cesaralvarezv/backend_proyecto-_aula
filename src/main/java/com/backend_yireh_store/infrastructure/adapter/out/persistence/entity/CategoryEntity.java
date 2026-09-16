@@ -29,6 +29,9 @@ public class CategoryEntity {
     @Column(nullable = false, length = 50)
     private String icon;
 
+    @Column(nullable = false, length = 100)
+    private String location;
+
     @Column(nullable = false)
     private boolean active;
 

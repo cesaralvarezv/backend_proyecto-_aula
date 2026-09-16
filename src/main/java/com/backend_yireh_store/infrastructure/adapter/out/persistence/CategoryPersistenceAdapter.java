@@ -50,6 +50,11 @@ public class CategoryPersistenceAdapter implements CategoryRepositoryPort {
     }
 
     @Override
+    public List<Category> findByActiveTrueAndLocation(String location) {
+        return jpaRepository.findByActiveTrueAndLocationIgnoreCase(location).stream().map(mapper::toDomain).toList();
+    }
+
+    @Override
     public boolean existsByNameIgnoreCase(String name) {
         return jpaRepository.existsByNameIgnoreCase(name);
     }
