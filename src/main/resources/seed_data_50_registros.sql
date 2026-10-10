@@ -53,7 +53,7 @@ INSERT INTO products (id, name, description, price, quantity, image_url, categor
 (12, 'Galleta de Avena, Miel y Chía', 'Snack saludable horneado sin azúcar refinada añadida', 3200.00, 60, 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400', 5, 1, 1, '2026-09-01 08:30:00', '2026-09-01 08:30:00');
 
 -- ----------------------------------------------------------------------------
--- 3. USUARIOS (5 registros)
+-- 3. USUARIOS (6 registros)
 -- Nota: Contraseña para todos es '123456'
 -- ----------------------------------------------------------------------------
 INSERT INTO users (id, name, phone, email, password_hash, balance, created_at) VALUES
@@ -61,10 +61,11 @@ INSERT INTO users (id, name, phone, email, password_hash, balance, created_at) V
 (2, 'Carlos Pérez Restrepo', '3109876543', 'carlos.perez@yirehstore.com', '$2a$10$7Hvl5xwHE2yJbmlKmBPq.OuJuY1BlD55S6O9x9E23xD2XhXlaKoM.', 45000.00, '2026-09-02 09:15:00'),
 (3, 'María Gómez Londoño', '3156781234', 'maria.gomez@yirehstore.com', '$2a$10$7Hvl5xwHE2yJbmlKmBPq.OuJuY1BlD55S6O9x9E23xD2XhXlaKoM.', 32000.00, '2026-09-03 10:30:00'),
 (4, 'Juan David Rodríguez', '3204567890', 'juan.rodriguez@yirehstore.com', '$2a$10$7Hvl5xwHE2yJbmlKmBPq.OuJuY1BlD55S6O9x9E23xD2XhXlaKoM.', 18500.00, '2026-09-04 14:20:00'),
-(5, 'Laura Martínez Castro', '3017894561', 'laura.martinez@yirehstore.com', '$2a$10$7Hvl5xwHE2yJbmlKmBPq.OuJuY1BlD55S6O9x9E23xD2XhXlaKoM.', 60000.00, '2026-09-05 11:45:00');
+(5, 'Laura Martínez Castro', '3017894561', 'laura.martinez@yirehstore.com', '$2a$10$7Hvl5xwHE2yJbmlKmBPq.OuJuY1BlD55S6O9x9E23xD2XhXlaKoM.', 60000.00, '2026-09-05 11:45:00'),
+(6, 'Cajero Mostrador 1', '3009998877', 'cajero@yirehstore.com', '$2a$10$7Hvl5xwHE2yJbmlKmBPq.OuJuY1BlD55S6O9x9E23xD2XhXlaKoM.', 0.00, '2026-09-01 07:30:00');
 
 -- ----------------------------------------------------------------------------
--- 4. ROLES DE USUARIOS (6 registros)
+-- 4. ROLES DE USUARIOS (8 registros)
 -- ----------------------------------------------------------------------------
 INSERT INTO user_roles (user_id, role_name) VALUES
 (1, 'ADMIN'),
@@ -72,7 +73,9 @@ INSERT INTO user_roles (user_id, role_name) VALUES
 (2, 'USER'),
 (3, 'USER'),
 (4, 'USER'),
-(5, 'USER');
+(5, 'USER'),
+(6, 'CASHIER'),
+(6, 'USER');
 
 -- ----------------------------------------------------------------------------
 -- 5. CARRITOS ACTIVOS (4 registros)
@@ -133,9 +136,32 @@ INSERT INTO order_items (id, order_id, product_id, product_name, unit_price, qua
 -- ----------------------------------------------------------------------------
 INSERT INTO app_logs (id, level, source, tag, message, stack_trace, platform, device_info, timestamp) VALUES
 (1, 'INFO', 'BACKEND', 'DataInitializer', 'Inicialización del sistema Yireh Store completada con éxito.', NULL, 'server', 'Spring Boot 3.5 Embedded Tomcat', '2026-09-12 07:00:00'),
-(2, 'INFO', 'BACKEND', 'WalletService', 'Recarga procesada exitosamente para usuario: carlos.perez@yirehstore.com por $50000.00 COP. Ref: REC-20260910-101', NULL, 'server', 'PostgreSQL / HikariCP Pool', '2026-09-10 08:15:00'),
+(2, 'INFO', 'BACKEND', 'WalletService', 'Recarga procesada exitosamente para usuario: carlos.perez@yirehstore.com por $50000.00 COP. Ref: REC-20260910-101', NULL, 'server', 'MySQL / HikariCP Pool', '2026-09-10 08:15:00'),
 (3, 'INFO', 'FRONTEND', 'CartController', 'Sincronización de carrito local-first ejecutada correctamente en dispositivo.', NULL, 'android', 'Pixel 7 Pro - Android 14 API 34', '2026-09-12 08:30:15'),
 (4, 'INFO', 'BACKEND', 'OrderService', 'Orden PED-20260912-1004 creada y enviada a cola de preparación de cocina.', NULL, 'server', 'Spring Boot Orders Dispatcher', '2026-09-12 09:10:00');
+
+-- ----------------------------------------------------------------------------
+-- 11. ACTIVOS FÍSICOS DE COCINA Y CAFETERÍA (4 registros de prueba)
+-- ----------------------------------------------------------------------------
+INSERT INTO physical_assets (id, asset_code, name, category, location, purchase_price, purchase_date, useful_life_months, depreciation_accumulated, maintenance_schedule, last_maintenance_date, next_maintenance_date, status, notes, created_at) VALUES
+(1, 'ACT-CAF-001', 'Cafetera Espresso Industrial 2 Grupos La Marzocco', 'Cafetería', 'Barra Principal Mostrador', 18500000.00, '2025-01-15', 60, 2466666.66, 'Trimestral - Cambio de empaques y descalcificación', '2026-07-15', '2026-10-15', 'OPERATIONAL', 'Mantenimiento preventivo al día.', '2026-09-01 08:00:00'),
+(2, 'ACT-MOL-002', 'Molino de Café On-Demand Mazzer Super Jolly', 'Cafetería', 'Barra Principal Mostrador', 4200000.00, '2025-01-15', 48, 700000.00, 'Bimestral - Calibración y limpieza de muelas', '2026-08-01', '2026-10-01', 'OPERATIONAL', 'Muelas en óptimo estado.', '2026-09-01 08:00:00'),
+(3, 'ACT-REF-003', 'Refrigerador Vertical Exhibidor 2 Puertas Vidrio', 'Refrigeración', 'Área de Despacho', 6800000.00, '2025-02-10', 84, 647619.00, 'Semestral - Carga de gas y limpieza de condensador', '2026-08-10', '2027-02-10', 'OPERATIONAL', 'Temperatura calibrada a 4°C.', '2026-09-01 08:00:00'),
+(4, 'ACT-POS-004', 'Terminal Táctil Punto de Venta + Impresora Térmica 80mm', 'Terminales POS', 'Caja 1 Mostrador', 2900000.00, '2025-03-01', 36, 483333.33, 'Mensual - Limpieza de cabezal térmico', '2026-09-01', '2026-10-01', 'OPERATIONAL', 'Conectado a red de mostrador.', '2026-09-01 08:00:00');
+
+-- ----------------------------------------------------------------------------
+-- 12. ARQUEOS Y CIERRES DE CAJA (Z-REPORT) (2 registros de prueba)
+-- ----------------------------------------------------------------------------
+INSERT INTO cash_closures (id, cashier_id, cashier_email, opening_amount, opening_time, closing_time, cash_sales_system, virtual_wallet_sales, card_sales, total_sales_system, declared_cash, discrepancy, status, notes, created_at) VALUES
+(1, 6, 'cajero@yirehstore.com', 100000.00, '2026-09-10 07:00:00', '2026-09-10 16:30:00', 45000.00, 125000.00, 30000.00, 200000.00, 145000.00, 0.00, 'CLOSED', 'Cierre sin novedades. Cuadre exacto en gaveta.', '2026-09-10 07:00:00'),
+(2, 6, 'cajero@yirehstore.com', 100000.00, '2026-09-11 07:00:00', NULL, 28000.00, 85000.00, 15000.00, 128000.00, NULL, NULL, 'OPEN', 'Turno en curso en Caja Mostrador.', '2026-09-11 07:00:00');
+
+-- ----------------------------------------------------------------------------
+-- 13. ENCUESTAS DE SATISFACCIÓN (CSAT) (2 registros de prueba)
+-- ----------------------------------------------------------------------------
+INSERT INTO satisfaction_surveys (id, order_id, user_email, rating, quick_tags, comment, created_at) VALUES
+(1, 1, 'carlos.perez@yirehstore.com', 5, 'Rápida entrega, Buena temperatura, Excelente sabor', 'El capuchino llegó perfecto al aula. Muy recomendado.', '2026-09-10 09:35:00'),
+(2, 2, 'maria.gomez@yirehstore.com', 4, 'Atención amable, Buena temperatura', 'Muy rico el granizado, entrega puntual en sala de profesores.', '2026-09-11 11:50:00');
 
 COMMIT;
 
@@ -161,5 +187,11 @@ UNION ALL
 SELECT 'orders', COUNT(*) FROM orders
 UNION ALL
 SELECT 'order_items', COUNT(*) FROM order_items
+UNION ALL
+SELECT 'cash_closures', COUNT(*) FROM cash_closures
+UNION ALL
+SELECT 'physical_assets', COUNT(*) FROM physical_assets
+UNION ALL
+SELECT 'satisfaction_surveys', COUNT(*) FROM satisfaction_surveys
 UNION ALL
 SELECT 'app_logs', COUNT(*) FROM app_logs;

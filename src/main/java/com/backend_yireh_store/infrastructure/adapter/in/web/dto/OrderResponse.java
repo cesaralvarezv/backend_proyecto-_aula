@@ -14,6 +14,11 @@ public record OrderResponse(
         String paymentMethod,
         String deliveryLocation,
         String notes,
+        String orderType,
+        Long cashierId,
+        Long closureId,
+        BigDecimal cashReceived,
+        BigDecimal changeReturned,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

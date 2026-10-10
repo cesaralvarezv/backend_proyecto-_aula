@@ -26,8 +26,26 @@ public class Product {
     private Category category;
     private boolean active;
     private int order;
+    @Builder.Default
+    private int quantity = 0;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public void reduceQuantity(int amount) {
+        if (amount <= 0) return;
+        if (this.quantity < amount) {
+            throw new IllegalStateException("Stock insuficiente para el producto: " + this.name
+                    + ". Disponible: " + this.quantity + ", Solicitado: " + amount);
+        }
+        this.quantity -= amount;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void increaseQuantity(int amount) {
+        if (amount <= 0) return;
+        this.quantity += amount;
+        this.updatedAt = LocalDateTime.now();
+    }
 
     public static Product createNew(String name, BigDecimal price, String description, String imageUrl,
                                     Category category, int order) {

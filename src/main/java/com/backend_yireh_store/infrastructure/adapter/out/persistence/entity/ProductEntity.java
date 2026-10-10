@@ -41,6 +41,10 @@ public class ProductEntity {
     @Column(nullable = false)
     private boolean active;
 
+    @Column(name = "quantity", nullable = false)
+    @Builder.Default
+    private int quantity = 0;
+
     @Column(name = "display_order", nullable = false)
     private int order;
 

@@ -87,8 +87,10 @@ public class OrderController {
         List<OrderItemResponse> items = o.getItems() == null ? List.of()
                 : o.getItems().stream().map(this::toItemResponse).collect(Collectors.toList());
         return new OrderResponse(o.getId(), o.getOrderNumber(), o.getUserEmail(),
-                items, o.getTotal(), o.getStatus().name(), o.getPaymentMethod(),
-                o.getDeliveryLocation(), o.getNotes(), o.getCreatedAt(), o.getUpdatedAt());
+                items, o.getTotal(), o.getStatus() != null ? o.getStatus().name() : null, o.getPaymentMethod(),
+                o.getDeliveryLocation(), o.getNotes(), o.getOrderType(), o.getCashierId(),
+                o.getClosureId(), o.getCashReceived(), o.getChangeReturned(),
+                o.getCreatedAt(), o.getUpdatedAt());
     }
 
     private OrderItemResponse toItemResponse(OrderItem item) {

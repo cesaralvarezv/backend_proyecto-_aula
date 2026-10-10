@@ -26,6 +26,7 @@ public interface ProductMapper {
     @Mapping(target = "category", source = "category", qualifiedByName = "categoryEntityToDomain")
     @Mapping(target = "active", source = "active")
     @Mapping(target = "order", source = "order")
+    @Mapping(target = "quantity", source = "quantity")
     @Mapping(target = "createdAt", source = "createdAt")
     @Mapping(target = "updatedAt", source = "updatedAt")
     Product toDomain(ProductEntity entity);
@@ -39,6 +40,7 @@ public interface ProductMapper {
     @Mapping(target = "category", source = "category", qualifiedByName = "categoryDomainToEntity")
     @Mapping(target = "active", source = "active")
     @Mapping(target = "order", source = "order")
+    @Mapping(target = "quantity", source = "quantity")
     @Mapping(target = "createdAt", source = "createdAt")
     @Mapping(target = "updatedAt", source = "updatedAt")
     ProductEntity toEntity(Product domain);
@@ -53,6 +55,7 @@ public interface ProductMapper {
     @Mapping(target = "categoryName", source = "category.name")
     @Mapping(target = "active", source = "active")
     @Mapping(target = "order", source = "order")
+    @Mapping(target = "quantity", source = "quantity")
     @Mapping(target = "createdAt", source = "createdAt")
     @Mapping(target = "updatedAt", source = "updatedAt")
     ProductResponse toResponse(Product domain);

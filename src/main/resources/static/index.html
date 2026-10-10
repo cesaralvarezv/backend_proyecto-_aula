@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yireh Store — Asistente Inteligente con IA (Ollama)</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Estilos de la aplicación -->
+    <link rel="stylesheet" href="/css/chat.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación Superior -->
+    <header class="navbar">
+        <a href="/" class="brand">
+            <div class="brand-icon">☕</div>
+            <div>
+                <div class="brand-title">Yireh Store</div>
+                <div class="brand-subtitle">Cafetería & E-Commerce</div>
+            </div>
+        </a>
+
+        <!-- Indicador de Estado del LLM en Vivo -->
+        <div class="status-badge" id="llmStatusBadge" title="Estado de la conexión con el motor de IA local">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">Verificando IA...</span>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main class="main-container">
+
+        <!-- Barra Lateral con Contexto del Dominio y Arquitectura -->
+        <aside class="sidebar">
+            <div>
+                <h3>🏪 Sobre Yireh Store</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                    Sistema integral de gestión de cafetería y tienda online con arquitectura hexagonal, inventario en tiempo real y asistente con IA generativa local.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-title">🧠 Motor de Inteligencia Artificial</div>
+                <p>Integración nativa con <strong>Ollama LLM</strong> ejecutándose en local para garantizar privacidad y cero costos de API externa.</p>
+                <div style="margin-top: 0.5rem;">
+                    <span class="tech-tag">Ollama API</span>
+                    <span class="tech-tag">Qwen 2.5</span>
+                    <span class="tech-tag">Spring 6 RestClient</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-title">📦 Capacidades del Asistente</div>
+                <ul>
+                    <li>Consulta de productos activos y stock</li>
+                    <li>Precios actualizados en tiempo real</li>
+                    <li>Asesoría en bebidas de café y repostería</li>
+                    <li>Información de billetera virtual y pagos</li>
+                    <li>Políticas de la tienda y pedidos</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <div class="info-card-title">🛡️ Seguridad & Arquitectura</div>
+                <p style="font-size: 0.82rem;">
+                    Endpoints securizados mediante <strong>Spring Security</strong> con arquitectura hexagonal orientada al dominio (Domain-Driven Design).
+                </p>
+            </div>
+        </aside>
+
+        <!-- Ventana Central del Chatbot -->
+        <section class="chat-window">
+            <!-- Encabezado del Chat -->
+            <div class="chat-header">
+                <div class="chat-assistant-info">
+                    <div class="assistant-avatar">
+                        🤖
+                        <span class="online-pip"></span>
+                    </div>
+                    <div class="assistant-meta">
+                        <h4>YirehBot</h4>
+                        <p>Asistente Virtual de Ventas & Soporte</p>
+                    </div>
+                </div>
+
+                <div class="chat-actions">
+                    <button id="clearBtn" class="btn-icon" title="Reiniciar conversación" aria-label="Limpiar chat">
+                        🔄
+                    </button>
+                </div>
+            </div>
+
+            <!-- Área de Mensajes del Chat -->
+            <div class="chat-messages" id="chatMessages">
+                <!-- Los mensajes se renderizan dinámicamente con JavaScript -->
+            </div>
+
+            <!-- Chips de Preguntas Sugeridas / Acceso Rápido -->
+            <div class="quick-chips-container">
+                <button class="chip-btn" data-prompt="¿Qué variedad de café tienen disponible y a qué precio?">
+                    ☕ Variedades de café
+                </button>
+                <button class="chip-btn" data-prompt="¿Cuáles son los productos disponibles y su stock actual?">
+                    📋 Catálogo y stock
+                </button>
+                <button class="chip-btn" data-prompt="¿Qué métodos de pago aceptan en Yireh Store?">
+                    💳 Métodos de pago
+                </button>
+                <button class="chip-btn" data-prompt="¿Tienen opciones de repostería o snacks para acompañar?">
+                    🥐 Repostería
+                </button>
+            </div>
+
+            <!-- Formulario de Entrada de Texto -->
+            <div class="chat-input-area">
+                <form id="chatForm" class="input-form">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        placeholder="Escribe tu mensaje a YirehBot (ej: ¿Cuánto cuesta un capuchino?)..." 
+                        autocomplete="off"
+                        required
+                    />
+                    <button type="submit" id="sendBtn" class="btn-send">
+                        <span>Enviar</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Script del Cliente -->
+    <script src="/js/chat.js"></script>
+</body>
+</html>

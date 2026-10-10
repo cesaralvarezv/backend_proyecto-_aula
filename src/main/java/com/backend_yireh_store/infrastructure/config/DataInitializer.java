@@ -33,6 +33,15 @@ public class DataInitializer implements CommandLineRunner {
     @Value("${admin.name:Administrador}")
     private String adminName;
 
+    @Value("${cashier.email:cajero@yirehstore.com}")
+    private String cashierEmail;
+
+    @Value("${cashier.password:Cajero123456}")
+    private String cashierPassword;
+
+    @Value("${cashier.name:Cajero Principal}")
+    private String cashierName;
+
     public DataInitializer(UserRepositoryPort userRepository, PasswordEncoderPort passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -50,6 +59,18 @@ public class DataInitializer implements CommandLineRunner {
             log.info("[DataInitializer] Usuario ADMIN creado: {}", adminEmail);
         } else {
             log.info("[DataInitializer] Usuario ADMIN ya existe: {}", adminEmail);
+        }
+
+        if (!userRepository.existsByEmail(cashierEmail)) {
+            String cashierHash = passwordEncoder.encode(cashierPassword);
+            User cashier = new User(null, cashierName, "3009998877", cashierEmail, cashierHash,
+                    EnumSet.of(RoleName.CASHIER, RoleName.USER),
+                    java.math.BigDecimal.ZERO,
+                    java.time.LocalDateTime.now());
+            userRepository.save(cashier);
+            log.info("[DataInitializer] Usuario CASHIER creado: {}", cashierEmail);
+        } else {
+            log.info("[DataInitializer] Usuario CASHIER ya existe: {}", cashierEmail);
         }
     }
 }

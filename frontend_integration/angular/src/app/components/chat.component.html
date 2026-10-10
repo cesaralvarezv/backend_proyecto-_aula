@@ -1,0 +1,57 @@
+<div class="chat-container">
+  <!-- Header del Chat -->
+  <header class="chat-header">
+    <div class="bot-info">
+      <div class="avatar">🤖</div>
+      <div>
+        <h3>YirehBot</h3>
+        <p class="status-indicator">
+          <span class="status-dot" [class.online]="status?.llmAvailable"></span>
+          {{ status?.llmAvailable ? 'Ollama Online (' + status?.model + ')' : 'Conectando...' }}
+        </p>
+      </div>
+    </div>
+    <button class="btn-clear" (click)="clearSession()" title="Reiniciar chat">🔄</button>
+  </header>
+
+  <!-- Mensajes -->
+  <div class="messages-viewport" #scrollContainer>
+    <div *ngFor="let msg of messages" class="message-row" [class.user]="msg.role === 'user'" [class.bot]="msg.role !== 'user'">
+      <div class="avatar-mini">{{ msg.role === 'user' ? '👤' : '☕' }}</div>
+      <div class="bubble">
+        <p class="text">{{ msg.content }}</p>
+        <span class="time">{{ msg.timestamp | date:'shortTime' }}</span>
+      </div>
+    </div>
+
+    <!-- Indicador de Carga -->
+    <div *ngIf="isLoading" class="message-row bot typing">
+      <div class="avatar-mini">☕</div>
+      <div class="typing-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preguntas rápidas -->
+  <div class="quick-prompts">
+    <button *ngFor="let prompt of quickPrompts" class="prompt-chip" (click)="sendMessage(prompt)">
+      {{ prompt }}
+    </button>
+  </div>
+
+  <!-- Barra de entrada -->
+  <footer class="chat-footer">
+    <form (ngSubmit)="sendMessage()" class="input-group">
+      <input 
+        type="text" 
+        [(ngModel)]="userInput" 
+        name="userMessage" 
+        placeholder="Pregunta a YirehBot sobre café, precios o stock..."
+        [disabled]="isLoading" 
+        autocomplete="off"
+      />
+      <button type="submit" [disabled]="!userInput.trim() || isLoading">Enviar</button>
+    </form>
+  </footer>
+</div>

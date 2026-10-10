@@ -47,6 +47,22 @@ public class OrderEntity {
     @Column(name = "notes", length = 500)
     private String notes;
 
+    @Column(name = "order_type", nullable = false, length = 20)
+    @Builder.Default
+    private String orderType = "MOBILE";
+
+    @Column(name = "cashier_id")
+    private Long cashierId;
+
+    @Column(name = "closure_id")
+    private Long closureId;
+
+    @Column(name = "cash_received", precision = 12, scale = 2)
+    private BigDecimal cashReceived;
+
+    @Column(name = "change_returned", precision = 12, scale = 2)
+    private BigDecimal changeReturned;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

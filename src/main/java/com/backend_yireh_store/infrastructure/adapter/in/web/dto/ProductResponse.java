@@ -13,6 +13,7 @@ public record ProductResponse(
         String categoryName,
         boolean active,
         int order,
+        int quantity,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

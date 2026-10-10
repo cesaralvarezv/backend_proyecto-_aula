@@ -5,5 +5,6 @@ package com.backend_yireh_store.domain.model;
  */
 public enum RoleName {
     USER,
-    ADMIN
+    ADMIN,
+    CASHIER
 }

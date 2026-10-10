@@ -52,4 +52,8 @@ public class User {
     public boolean isAdmin() {
         return hasRole(RoleName.ADMIN);
     }
+
+    public boolean isCashier() {
+        return hasRole(RoleName.CASHIER) || isAdmin();
+    }
 }

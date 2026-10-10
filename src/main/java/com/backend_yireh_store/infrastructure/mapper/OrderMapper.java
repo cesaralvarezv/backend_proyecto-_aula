@@ -27,6 +27,11 @@ public class OrderMapper {
                 .paymentMethod(entity.getPaymentMethod())
                 .deliveryLocation(entity.getDeliveryLocation())
                 .notes(entity.getNotes())
+                .orderType(entity.getOrderType())
+                .cashierId(entity.getCashierId())
+                .closureId(entity.getClosureId())
+                .cashReceived(entity.getCashReceived())
+                .changeReturned(entity.getChangeReturned())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
                 .build();
@@ -42,6 +47,11 @@ public class OrderMapper {
                 .paymentMethod(domain.getPaymentMethod())
                 .deliveryLocation(domain.getDeliveryLocation())
                 .notes(domain.getNotes())
+                .orderType(domain.getOrderType() != null ? domain.getOrderType() : "MOBILE")
+                .cashierId(domain.getCashierId())
+                .closureId(domain.getClosureId())
+                .cashReceived(domain.getCashReceived())
+                .changeReturned(domain.getChangeReturned())
                 .createdAt(domain.getCreatedAt())
                 .updatedAt(domain.getUpdatedAt())
                 .build();

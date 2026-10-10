@@ -21,6 +21,12 @@ public class Order {
     private String paymentMethod;    // WALLET, CASH, NEQUI, DAVIPLATA
     private String deliveryLocation; // Ej: "Piso 3 - Local 302"
     private String notes;
+    @Builder.Default
+    private String orderType = "MOBILE"; // MOBILE, POS_COUNTER
+    private Long cashierId;
+    private Long closureId;
+    private BigDecimal cashReceived;
+    private BigDecimal changeReturned;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
